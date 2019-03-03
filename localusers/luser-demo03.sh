@@ -5,7 +5,7 @@
 
 
 # Display the UID
-
+echo "Hello, ${UID}"
 
 # Display a message if the UID does not match 1000
 
