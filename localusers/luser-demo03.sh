@@ -8,7 +8,13 @@
 echo "Hello, ${UID}"
 
 # Display a message if the UID does not match 1000
+UID_CHECK='1000'
 
+if [[ "${UID}" -ne "${UID_CHECK}" ]]
+then
+  echo "Your ID does not match ${UID_CHECK}"
+  exit 1
+fi
 
 # Display the username
 
