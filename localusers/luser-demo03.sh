@@ -28,6 +28,18 @@ fi
 echo "Your username is ${USER_NAME}"
 
 # Use a string test conditional
+NAME_TO_TEST='vagrant'
 
+if [[ "${USER_NAME}" = "${NAME_TO_TEST}" ]]
+then
+  echo "Your username matches ${NAME_TO_TEST}"
+fi
 
 # Test for string not equal
+if [[ "${USER_NAME}" != "${NAME_TO_TEST}" ]]
+then
+  echo "You do not match ${NAME_TO_TEST}"
+  exit 1
+fi
+
+exit 0
