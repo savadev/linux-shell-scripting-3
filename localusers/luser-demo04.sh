@@ -13,7 +13,7 @@ read -p 'Enter the person's name: ' PERSON_NAME
 read -p 'Enter the password for the account: ' PASSWORD
 
 # Create user.
-
+useradd -c "${PERSON_NAME}" -m ${USER_NAME}
 
 # Set password for user.
 
