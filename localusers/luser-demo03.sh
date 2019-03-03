@@ -17,10 +17,15 @@ then
 fi
 
 # Display the username
-
+USER_NAME=$(whoami)
 
 # Test if the command succeeded
-
+if [[ "${?}" -ne 0 ]]
+then
+  echo 'The ID command failed.'
+  exit "$?"
+fi
+echo "Your username is ${USER_NAME}"
 
 # Use a string test conditional
 
