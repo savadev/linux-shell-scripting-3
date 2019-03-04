@@ -23,17 +23,17 @@ read -p 'Enter initial password: ' PASSWORD
 useradd -c "${FULL_NAME}" -m ${USERNAME}
 
 # !Check to see if account creation was successful
-if [[ $? -ne 0 ]]
+if [[ "${?}" -ne 0 ]]
 then
 	echo 'Account creation unsuccessful.'
 	exit 1
 fi
 
 # !Set initial password
-echo PASSWORD | passwd --stdin ${USERNAME}
+echo ${PASSWORD} | passwd --stdin ${USERNAME}
 
 # !Check to see if password add was successful
-if [[ $? -ne 0 ]]
+if [[ "${?}" -ne 0 ]]
 then
 	echo 'Password change unsuccessful.'
 	exit 1
@@ -43,6 +43,8 @@ fi
 passwd -e ${USERNAME}
 
 # Display username, password, and host (?) SEE MAN BASH
+echo
 echo "Username: ${USERNAME}"
 echo "Password: ${PASSWORD}"
-echo "Host: "${HOSTNAME}"
+echo "Host: ${HOSTNAME}"
+exit 0
