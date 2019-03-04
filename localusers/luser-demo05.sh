@@ -10,3 +10,10 @@ echo "${PASSWORD}"
 PASSWORD="${RANDOM}${RANDOM}${RANDOM}"
 echo "${PASSWORD}"
 
+# Maybe use something about the date for a password?
+PASSWORD="$(date +%s)"
+echo "${PASSWORD}"
+
+# Let's go even crazier and use nanoseconds!
+PASSWORD="$(date +%s%N)"
+echo "${PASSWORD}"
