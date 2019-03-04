@@ -17,3 +17,10 @@ then
 	echo "Usage: ${0} USER_NAME [USER_NAME]..."
 	exit 1
 fi
+
+# Generate and display a password for each parameter
+for USER_NAME in "$@"
+do
+	PASSWORD=$(date +%s%N | sha256sum | head -c16)
+	echo "${USER_NAME}: ${PASSWORD}"
+done
