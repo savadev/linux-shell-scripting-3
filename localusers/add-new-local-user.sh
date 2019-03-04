@@ -29,6 +29,14 @@ then
 fi
 
 # Automatically generate a password
+PASS_NUMS = $(date +%s%N | sha256sum)
+PASS_CHARS = '!@#$%^&*?-_=+<>'
+PASSWORD="$(echo PASS_NUMS | head -c7)$(echo PASS_CHARS | fold -w 1 | shuff | head -n1)$(echo PASS_NUMS | tail -c7)"
 
+# Add password to account
+echo ${PASSWORD} | passwd --stdin ${USERNAME}
+
+# Set password to expire
+passwd -e ${USERNAME}
 
 # Display username, password, and host
