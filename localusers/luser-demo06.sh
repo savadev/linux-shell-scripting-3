@@ -9,4 +9,11 @@ echo "You executed the command ${0}"
 echo "You used $(dirname ${0}) as the path to the $(basename ${0}) script"
 
 # Tell them how many arguments they passed
+echo "You supplied $# arguments to the command line."
 
+# Make sure they supply at least one argument
+if [[ $# -lt 1 ]]
+then
+	echo "Usage: ${0} USER_NAME [USER_NAME]..."
+	exit 1
+fi
