@@ -17,3 +17,7 @@ echo "${PASSWORD}"
 # Let's go even crazier and use nanoseconds!
 PASSWORD="$(date +%s%N)"
 echo "${PASSWORD}"
+
+# Use a checksum to randomize even more!
+PASSWORD=$(date +%s%N | sha256sum | head -c20)
+echo "${PASSWORD}"
