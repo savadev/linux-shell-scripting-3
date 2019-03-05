@@ -11,12 +11,20 @@ then
 	exit 1
 fi
 
+# !If they don't supply at least one argument, then help them out
+if [[ $# -lt 1 ]]
+then
+	echo "Usage: ${0} USER_NAME [COMMENT]..."
+	echo 'Creates an account with USER_NAME and adds COMMENT to the account comments.'
+	exit 1
+fi
+
 # First argument is user name
 USERNAME=${1}
 
 # Additional arguments are comments
 shift
-COMMENTS="${*}
+COMMENTS="${*}"
 
 # Create account
 useradd -c "${COMMENTS}" -m "${USERNAME}"
@@ -29,14 +37,27 @@ then
 fi
 
 # Automatically generate a password
-PASS_NUMS = $(date +%s%N | sha256sum)
-PASS_CHARS = '!@#$%^&*?-_=+<>'
-PASSWORD="$(echo PASS_NUMS | head -c7)$(echo PASS_CHARS | fold -w 1 | shuff | head -n1)$(echo PASS_NUMS | tail -c7)"
+PASS_NUMS="$(date +%s%N${RANDOM}${RANDOM} | sha256sum)"
+PASS_CHARS='!@#$%^&*?-_=+<>'
+PASSWORD="$(echo "${PASS_NUMS}" | head -c15)$(echo "${PASS_CHARS}" | fold -w 1 | shuf | head -n1)"
 
 # Add password to account
 echo ${PASSWORD} | passwd --stdin ${USERNAME}
+
+# Make sure adding the password worked
+if [[ $? -ne 0 ]]
+then
+	echo "Password could not be added to account ${USERNAME}."
+	exit 1
+fi
 
 # Set password to expire
 passwd -e ${USERNAME}
 
 # Display username, password, and host
+echo
+echo "Username: ${USERNAME}"
+echo "Password: ${PASSWORD}"
+echo "Host: ${HOSTNAME}"
+echo
+exit 0
