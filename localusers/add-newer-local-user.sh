@@ -20,16 +20,24 @@ fi
 
 # The first argument is the username
 USER_NAME=${1}
-echo "${USER_NAME}"
 
 # Any other arguments are comment text
 shift 1
 COMMENTS="${*}"
-echo "${COMMENTS}"
+
+# Create the account
+useradd -c "${COMMENTS}" -m "${USER_NAME}"
 
 # Check to see if the creation succeeded
+if [[ ${?} -ne 0 ]]
+then
+	echo "The account could not be created" <&2
+	exit 1
+fi
 
 # Automatically generate a password
+PASSWORD="$(date +%s${RANDOM}${RANDOM} | sha256sum)"
+echo "${PASSWORD}"
 
 # Check to see if password addition succeeded
 
