@@ -31,16 +31,33 @@ useradd -c "${COMMENTS}" -m "${USER_NAME}"
 # Check to see if the creation succeeded
 if [[ ${?} -ne 0 ]]
 then
-	echo "The account could not be created" <&2
+	echo "The account could not be created" >&2
 	exit 1
 fi
 
 # Automatically generate a password
 PASSWORD="$(date +%s${RANDOM}${RANDOM} | sha256sum)"
-echo "${PASSWORD}"
+CHARS='!@#$%^&*-_=+<>'
+PASSWORD="$(echo "${PASSWORD}" | head -c10)$(echo "${CHARS}" | fold -w 1 | shuf | tail -n1)$(echo "${PASSWORD}" | head -c64 | tail -c10)"
+
+# Set password
+echo ${PASSWORD} | passwd --stdin ${USER_NAME}
 
 # Check to see if password addition succeeded
+if [[ ${?} -ne 0 ]]
+then
+	echo "The password could not be set." >&2
+	exit 1
+fi
 
 # Set password to expire
+passwd -e ${USER_NAME}
 
 # Display username, password, and host
+echo
+echo '============= ACCOUNT CREATED =============='
+echo "USERNAME: ${USER_NAME}"
+echo "PASSWORD: ${PASSWORD}"
+echo "HOST NAME: ${HOSTNAME}"
+echo '============================================'
+echo
