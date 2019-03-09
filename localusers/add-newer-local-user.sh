@@ -2,7 +2,13 @@
 
 # This script adds users to the local system and conforms to Linux program standard conventions.
 
+
 # Enforce execution with superuser privileges
+if [[ ${UID} -ne 0 ]]
+then
+	echo "Please run script with superuser privileges" >&2
+	exit 1
+fi
 
 # Return usage statement if script is not called properly (with account name)
 
