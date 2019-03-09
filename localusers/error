@@ -1,1 +1,2 @@
-Please run script with superuser privileges
+Usage ./add-newer-local-user.sh USER_NAME [COMMENT]...
+Creates an account with USER_NAME and adds COMMENT to account comments.

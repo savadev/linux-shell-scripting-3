@@ -11,6 +11,12 @@ then
 fi
 
 # Return usage statement if script is not called properly (with account name)
+if [[ ${#} -lt 1 ]]
+then
+	echo "Usage ${0} USER_NAME [COMMENT]..." >&2
+	echo 'Creates an account with USER_NAME and adds COMMENT to account comments.' >&2
+	exit 1
+fi
 
 # The first argument is the username
 
