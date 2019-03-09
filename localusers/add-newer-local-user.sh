@@ -19,8 +19,13 @@ then
 fi
 
 # The first argument is the username
+USER_NAME=${1}
+echo "${USER_NAME}"
 
 # Any other arguments are comment text
+shift 1
+COMMENTS="${*}"
+echo "${COMMENTS}"
 
 # Check to see if the creation succeeded
 
