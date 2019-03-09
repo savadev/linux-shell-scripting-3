@@ -26,7 +26,7 @@ shift 1
 COMMENTS="${*}"
 
 # Create the account
-useradd -c "${COMMENTS}" -m "${USER_NAME}"
+useradd -c "${COMMENTS}" -m "${USER_NAME}" > /dev/null
 
 # Check to see if the creation succeeded
 if [[ ${?} -ne 0 ]]
@@ -41,7 +41,7 @@ CHARS='!@#$%^&*-_=+<>'
 PASSWORD="$(echo "${PASSWORD}" | head -c10)$(echo "${CHARS}" | fold -w 1 | shuf | tail -n1)$(echo "${PASSWORD}" | head -c64 | tail -c10)"
 
 # Set password
-echo ${PASSWORD} | passwd --stdin ${USER_NAME}
+echo ${PASSWORD} | passwd --stdin ${USER_NAME} > /dev/null
 
 # Check to see if password addition succeeded
 if [[ ${?} -ne 0 ]]
@@ -51,7 +51,7 @@ then
 fi
 
 # Set password to expire
-passwd -e ${USER_NAME}
+passwd -e ${USER_NAME} > /dev/null
 
 # Display username, password, and host
 echo
