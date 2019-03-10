@@ -8,5 +8,11 @@ log()
   echo 'You called the log function!'
 }
 
+function anotherlog
+{
+  echo 'You called the other log function!'
+}
+
 # Call the function here WITH NO PARENS
 log
+anotherlog
