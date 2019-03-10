@@ -19,15 +19,9 @@
 
 # Do the same thing with a case statement
 case "${1}" in
-	start)
-		echo 'Starting'
-		;;
-	stop)
-		echo 'Stopping'
-		;;
-	status|state|--state|--status)
-		echo 'Status:'
-		;;
+	start) echo 'Starting' ;;
+	stop) echo 'Stopping' ;;
+	status|state|--state|--status) echo 'Status:' ;;
 	*)
 		echo 'Supply a valid option' >&2
 		exit 1
