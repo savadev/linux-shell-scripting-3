@@ -6,7 +6,11 @@
 log()
 {
   local MESSAGE="${@}"
-  echo "${MESSAGE}"
+  if [[ "${VERBOSE}" = 'true' ]]
+  then
+    echo "${MESSAGE}"
+  fi
+  logger -t "${0}" "${MESSAGE}"
 }
 
 function anotherlog
@@ -16,4 +20,6 @@ function anotherlog
 
 # Call the function here WITH NO PARENS
 log I passed this message to the function!
+VERBOSE='true'
+log I turned verbose on now!
 anotherlog
