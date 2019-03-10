@@ -25,7 +25,7 @@ case "${1}" in
 	stop)
 		echo 'Stopping'
 		;;
-	status)
+	status|state|--state|--status)
 		echo 'Status:'
 		;;
 	*)
