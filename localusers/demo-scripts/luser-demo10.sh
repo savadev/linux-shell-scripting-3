@@ -5,7 +5,8 @@
 # Define the function here
 log()
 {
-  echo 'You called the log function!'
+  local MESSAGE="${@}"
+  echo "${MESSAGE}"
 }
 
 function anotherlog
@@ -14,5 +15,5 @@ function anotherlog
 }
 
 # Call the function here WITH NO PARENS
-log
+log I passed this message to the function!
 anotherlog
