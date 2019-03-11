@@ -7,7 +7,7 @@
 
 show_usage()
 {
-  echo "Usage: ${0} [-vs] [-l LENGTH]" >&2
+  echo "Usage: $(basename ${0}) [-vs] [-l LENGTH]" >&2
   echo 'Generate a random password.'
   echo '  -l LENGTH Specify the password length.'
   echo '  -s        Append a special character to the password.'
