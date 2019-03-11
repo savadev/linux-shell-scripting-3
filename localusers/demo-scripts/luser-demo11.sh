@@ -41,6 +41,14 @@ do
   esac
 done
 
+# Remove the options while leaving the remaining arguments (this should be none)
+shift $(( OPTIND - 1 ))
+
+if [[ $# -gt 0 ]]
+then
+  show_usage
+fi
+
 verbose_print 'Generating password...'
 
 # Actually generate a password
