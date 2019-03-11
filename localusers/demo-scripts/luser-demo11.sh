@@ -5,6 +5,18 @@
 # - Special character can be added with -s
 # - Verbose mode can be enabled with -v
 
+show_usage()
+{
+  echo "Usage: ${0} [-vs] [-l LENGTH]" >&2
+  echo 'Generate a random password.'
+  echo '  -l LENGTH Specify the password length.'
+  echo '  -s        Append a special character to the password.'
+  echo '  -v        Use verbose mode.'
+  exit 1
+}
+
+
+
 # Set a default length
 LENGTH=48
 
@@ -17,9 +29,6 @@ do
       ;;
     l) LENGTH="${OPTARG}" ;;
     s) USE_SPECIAL='true' ;;
-    ?)
-      echo 'Invalid option.' >&2
-      exit 1
-      ;;
+    ?) show_usage ;;
   esac
 done
