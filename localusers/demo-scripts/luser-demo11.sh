@@ -41,4 +41,21 @@ do
   esac
 done
 
-print_stdout "Generating password..."
+print_stdout 'Generating password...'
+
+# Actually generate a password
+PASSWORD=$(date +%s%N${RANDOM}${RANDOM} | sha256sum | head -c${LENGTH})
+
+# Append special character
+if [[ "${USE_SPECIAL}" = 'true' ]]
+then
+  print_stdout 'Adding special character'
+  SPECIAL_CHAR=$(echo '!@#$%^&*-_=+' | fold -w1 | shuf | head -c1)
+  PASSWORD="${PASSWORD}${SPECIAL_CHAR}"
+fi
+
+print_stdout 'Done'
+
+echo "Your password: ${PASSWORD}"
+
+exit 0
