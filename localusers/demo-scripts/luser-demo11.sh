@@ -15,6 +15,14 @@ show_usage()
   exit 1
 }
 
+print_stdout()
+{
+  local MESSAGE="${@}"
+  if [[ "${VERBOSE}" = 'true' ]]
+  then
+    echo "${MESSAGE}"
+  fi
+}
 
 
 # Set a default length
@@ -32,3 +40,5 @@ do
     ?) show_usage ;;
   esac
 done
+
+print_stdout "Generating password..."
