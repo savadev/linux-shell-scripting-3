@@ -15,7 +15,7 @@ show_usage()
   exit 1
 }
 
-print_stdout()
+verbose_print()
 {
   local MESSAGE="${@}"
   if [[ "${VERBOSE}" = 'true' ]]
@@ -33,7 +33,7 @@ do
   case "${OPTION}" in
     v)
       VERBOSE='true'
-      echo 'Verbose mode on'
+      verbose_print 'Verbose mode on'
       ;;
     l) LENGTH="${OPTARG}" ;;
     s) USE_SPECIAL='true' ;;
@@ -41,7 +41,7 @@ do
   esac
 done
 
-print_stdout 'Generating password...'
+verbose_print 'Generating password...'
 
 # Actually generate a password
 PASSWORD=$(date +%s%N${RANDOM}${RANDOM} | sha256sum | head -c${LENGTH})
@@ -49,12 +49,12 @@ PASSWORD=$(date +%s%N${RANDOM}${RANDOM} | sha256sum | head -c${LENGTH})
 # Append special character
 if [[ "${USE_SPECIAL}" = 'true' ]]
 then
-  print_stdout 'Adding special character'
+  verbose_print 'Adding special character'
   SPECIAL_CHAR=$(echo '!@#$%^&*-_=+' | fold -w1 | shuf | head -c1)
   PASSWORD="${PASSWORD}${SPECIAL_CHAR}"
 fi
 
-print_stdout 'Done'
+verbose_print 'Done'
 
 echo "Your password: ${PASSWORD}"
 
