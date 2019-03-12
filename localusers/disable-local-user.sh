@@ -26,16 +26,21 @@ archive()
 
 print_usage()
 {
-  echo "Usage: $(basename $0) [-dra] USER_NAME [USER_NAME]..."
-  echo 'Disable, delete, and archive accounts.'
-  echo 'Accounts disabled by default.'
-  echo '  -d Delete the account.'
-  echo '  -r Remove the home directory.'
-  echo '  -a Archive the home directory.'
+  echo "Usage: $(basename $0) [-dra] USER_NAME [USER_NAME]..." >&2
+  echo 'Disable, delete, and archive accounts.' >&2
+  echo 'Accounts disabled by default.' >&2
+  echo '  -d Delete the account.' >&2
+  echo '  -r Remove the home directory.' >&2
+  echo '  -a Archive the home directory.' >&2
   exit 1
 }
 
 # Enforce execution with superuser privileges
+if [[ ${UID} -ne 0 ]]
+then
+  echo "Please execute script $(basename $0) with superuser privileges." >&2
+  exit 1
+fi
 
 
 # Parse options
