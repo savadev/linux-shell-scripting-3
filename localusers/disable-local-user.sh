@@ -60,4 +60,9 @@ then
   print_usage
 fi
 
+for UNAME in "$@"
+do
+  
+done
+
 # Do the things for each account name
