@@ -28,7 +28,14 @@ archive()
 
 
 # Parse options
-
+while getopts dra OPTION
+do
+  case "${OPTION}" in
+    d) DELETE='true' ;;
+    r) REMOVE='true' ;;
+    a) ARCHIVE='true' ;;
+  esac
+done
 
 # Parse account name arguments
 
