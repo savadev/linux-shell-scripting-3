@@ -8,10 +8,10 @@
 show_usage()
 {
   echo "Usage: $(basename ${0}) [-vs] [-l LENGTH]" >&2
-  echo 'Generate a random password.'
-  echo '  -l LENGTH Specify the password length.'
-  echo '  -s        Append a special character to the password.'
-  echo '  -v        Use verbose mode.'
+  echo 'Generate a random password.' >&2
+  echo '  -l LENGTH Specify the password length.' >&2
+  echo '  -s        Append a special character to the password.' >&2
+  echo '  -v        Use verbose mode.' >&2
   exit 1
 }
 
