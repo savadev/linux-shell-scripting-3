@@ -11,17 +11,28 @@ readonly ARCHIVE_PATH='/archives'
 
 disable()
 {
-
+  echo 'hi'
 }
 
 delete()
 {
-
+  echo 'hi'
 }
 
 archive()
 {
+  echo 'hi'
+}
 
+print_usage()
+{
+  echo "Usage: $(basename $0) [-dra] USER_NAME [USER_NAME]..."
+  echo 'Disable, delete, and archive accounts.'
+  echo 'Accounts disabled by default.'
+  echo '  -d Delete the account.'
+  echo '  -r Remove the home directory.'
+  echo '  -a Archive the home directory.'
+  exit 1
 }
 
 # Enforce execution with superuser privileges
@@ -38,6 +49,10 @@ do
 done
 
 # Parse account name arguments
-
+shift $(( OPTIND - 1 ))
+if [[ $# -eq 0 ]]
+then
+  print_usage
+fi
 
 # Do the things for each account name
