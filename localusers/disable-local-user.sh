@@ -60,13 +60,28 @@ then
   print_usage
 fi
 
+# Do the things for each account name
 for UNAME in "$@"
 do
   # Refuse to perform any action on system accounts
   if [[ $(id -u ${UNAME}) -lt 1000 ]]
   then
     echo "Cannot modify system account ${UNAME}." >&2
+  else
+    if [[ ${ARCHIVE} = 'true' ]]
+    then
+      archive "${UNAME}"
+    fi
+    
+    # Choices are delete or disable
+    if [[ ${DELETE} = 'true' ]]
+    then
+      delete "${UNAME}"
+    else
+      disable "${UNAME}"
+    fi
   fi
 done
 
-# Do the things for each account name
+
+exit 0
