@@ -62,7 +62,11 @@ fi
 
 for UNAME in "$@"
 do
-  
+  # Refuse to perform any action on system accounts
+  if [[ $(id -u ${UNAME}) -lt 1000 ]]
+  then
+    echo "Cannot modify system account ${UNAME}." >&2
+  fi
 done
 
 # Do the things for each account name
