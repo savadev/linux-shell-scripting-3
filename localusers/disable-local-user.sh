@@ -24,10 +24,18 @@ delete()
 {
   if [[ ${REMOVE} = 'true' ]]
   then
-    userdel -r $1
+    userdel -r $1 1> /dev/null
+    if [[ $? -ne 0 ]]
+    then
+      exit 1
+    fi
     echo "Account $1 deleted and home directory removed."
   else
-    userdel $1
+    userdel $1 1> /dev/null
+    if [[ $? -ne 0 ]]
+    then
+      exit 1
+    fi
     echo "Account $1 deleted."
   fi
 }
@@ -37,7 +45,11 @@ archive()
   # "If not is an existing directory the archive path"
   if [[ ! -d ${ARCHIVE_PATH} ]]
   then
-    mkdir ${ARCHIVE_PATH}
+    mkdir ${ARCHIVE_PATH} 1> /dev/null
+    if [[ $? -ne 0 ]]
+    then
+      exit 1
+    fi
   fi
   # Make sure f is the last option if you're specifying a file
   tar -czf "${ARCHIVE_PATH}${1}.tar.gz" "/home/$1" 1> /dev/null
