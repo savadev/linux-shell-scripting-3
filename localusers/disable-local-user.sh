@@ -11,12 +11,18 @@ readonly ARCHIVE_PATH='/archives/'
 
 disable()
 {
-  echo "Disabling account $1..."
+  chage -E 0 $1 1> /dev/null
+  # Make sure it worked
+  if [[ $? -ne 0 ]]
+  then
+    exit 1
+  fi
+  echo "Account $1 disabled."
 }
 
 delete()
 {
-  echo "Deleting account $1..."
+  echo "Account $1 deleted."
 }
 
 archive()
@@ -26,8 +32,13 @@ archive()
   then
     mkdir ${ARCHIVE_PATH}
   fi
-
-  tar -czf "${ARCHIVE_PATH}${1}.tar.gz" "/home/$1"
+  # Make sure f is the last option if you're specifying a file
+  tar -czf "${ARCHIVE_PATH}${1}.tar.gz" "/home/$1" 1> /dev/null
+  # Make sure it worked
+  if [[ $? -ne 0 ]]
+  then
+    exit 1
+  fi
   echo "Account $1 archived and compressed."
 }
 
