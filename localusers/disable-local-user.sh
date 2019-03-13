@@ -7,21 +7,28 @@
 # - Home directories will be removed with -r
 # - An archive of the home directory will be added to /archives with -a
 
-readonly ARCHIVE_PATH='/archives'
+readonly ARCHIVE_PATH='/archives/'
 
 disable()
 {
-  echo 'hi'
+  echo "Disabling account $1..."
 }
 
 delete()
 {
-  echo 'hi'
+  echo "Deleting account $1..."
 }
 
 archive()
 {
-  echo 'hi'
+  # "If not is an existing directory the archive path"
+  if [[ ! -d ${ARCHIVE_PATH} ]]
+  then
+    mkdir ${ARCHIVE_PATH}
+  fi
+
+  tar -czf "${ARCHIVE_PATH}${1}.tar.gz" "/home/$1"
+  echo "Account $1 archived and compressed."
 }
 
 print_usage()
