@@ -22,7 +22,14 @@ disable()
 
 delete()
 {
-  echo "Account $1 deleted."
+  if [[ ${REMOVE} = 'true' ]]
+  then
+    userdel -r $1
+    echo "Account $1 deleted and home directory removed."
+  else
+    userdel $1
+    echo "Account $1 deleted."
+  fi
 }
 
 archive()
