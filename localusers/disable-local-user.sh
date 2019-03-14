@@ -90,7 +90,7 @@ fi
 for UNAME in "$@"
 do
   echo
-  printf "=============== ACTION FOR ACCOUNT %-8S ===============", ${UNAME}
+  printf "=============== ACTION FOR ACCOUNT %-8S ===============" ${UNAME}
   # Refuse to perform any action on system accounts
   if [[ $(id -u ${UNAME}) -lt 1000 ]]
   then
