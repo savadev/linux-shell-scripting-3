@@ -89,6 +89,8 @@ fi
 # Do the things for each account name
 for UNAME in "$@"
 do
+  echo
+  echo "================= ACTION FOR ACCOUNT $UNAME ================="
   # Refuse to perform any action on system accounts
   if [[ $(id -u ${UNAME}) -lt 1000 ]]
   then
@@ -107,6 +109,8 @@ do
       disable "${UNAME}"
     fi
   fi
+  echo "========================= COMPLETED ========================="
+  echo
 done
 
 
