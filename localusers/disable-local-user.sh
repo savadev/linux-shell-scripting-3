@@ -11,8 +11,8 @@ function run_check
 {
   # This executes the command given as args
   "$@" 1> /dev/null
-  local status = $?
-  if [[ status -ne 0 ]]
+  local status=$?
+  if [[ ${status} -ne 0 ]]
   then
     echo "Error in $1" >&2
     exit 1
@@ -90,7 +90,7 @@ fi
 for UNAME in "$@"
 do
   echo
-  printf "=============== ACTION FOR ACCOUNT %-8S ===============" ${UNAME}
+  printf "================ ACTION FOR ACCOUNT %-8s ================\n" ${UNAME}
   # Refuse to perform any action on system accounts
   if [[ $(id -u ${UNAME}) -lt 1000 ]]
   then
