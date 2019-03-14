@@ -7,8 +7,6 @@
 # - Home directories will be removed with -r
 # - An archive of the home directory will be added to /archives with -a
 
-readonly ARCHIVE_PATH='/archives/'
-
 function run_check
 {
   # This executes the command given as args
@@ -41,6 +39,7 @@ delete()
 
 archive()
 {
+  local readonly ARCHIVE_PATH='/archives/'
   # "If not is an existing directory the archive path"
   if [[ ! -d ${ARCHIVE_PATH} ]]
   then
