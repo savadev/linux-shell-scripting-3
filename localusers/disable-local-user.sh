@@ -12,7 +12,7 @@ readonly ARCHIVE_PATH='/archives/'
 function run_check
 {
   # This executes the command given as args
-  "$@"
+  "$@" 1> /dev/null
   local status = $?
   if [[ status -ne 0 ]]
   then
@@ -23,32 +23,19 @@ function run_check
 
 disable()
 {
-  chage -E 0 $1 1> /dev/null
-  # Make sure it worked
-  if [[ $? -ne 0 ]]
-  then
-    exit 1
-  fi
-  echo "Account $1 disabled."
+  run_check chage -E 0 $1
+  echo "Account disabled."
 }
 
 delete()
 {
   if [[ ${REMOVE} = 'true' ]]
   then
-    userdel -r $1 1> /dev/null
-    if [[ $? -ne 0 ]]
-    then
-      exit 1
-    fi
-    echo "Account $1 deleted and home directory removed."
+    run_check userdel -r $1
+    echo "Account deleted and home directory removed."
   else
-    userdel $1 1> /dev/null
-    if [[ $? -ne 0 ]]
-    then
-      exit 1
-    fi
-    echo "Account $1 deleted."
+    run_check userdel $1
+    echo "Account deleted."
   fi
 }
 
@@ -57,20 +44,11 @@ archive()
   # "If not is an existing directory the archive path"
   if [[ ! -d ${ARCHIVE_PATH} ]]
   then
-    mkdir ${ARCHIVE_PATH} 1> /dev/null
-    if [[ $? -ne 0 ]]
-    then
-      exit 1
-    fi
+    run_check mkdir ${ARCHIVE_PATH}
   fi
   # Make sure f is the last option if you're specifying a file
-  tar -czf "${ARCHIVE_PATH}${1}.tar.gz" "/home/$1" 1> /dev/null
-  # Make sure it worked
-  if [[ $? -ne 0 ]]
-  then
-    exit 1
-  fi
-  echo "Account $1 archived and compressed."
+  run_check tar -czf "${ARCHIVE_PATH}${1}.tar.gz" "/home/$1"
+  echo "Account archived and compressed."
 }
 
 print_usage()
