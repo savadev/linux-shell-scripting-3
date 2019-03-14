@@ -9,6 +9,18 @@
 
 readonly ARCHIVE_PATH='/archives/'
 
+function run_check
+{
+  # This executes the command given as args
+  "$@"
+  local status = $?
+  if [[ status -ne 0 ]]
+  then
+    echo "Error in $1" >&2
+    exit 1
+  fi
+}
+
 disable()
 {
   chage -E 0 $1 1> /dev/null
