@@ -27,5 +27,6 @@ echo 'Count,IP,Location'
 # a. All of the failed login attempts have 'Failed password' in the line
 # b. Since cut can't do multi-character separator, use awk becuase
 #    the useful stuff is after the word "from"
+# c. The IP address is before the space
 
-grep 'Failed password' ${1} | awk -F 'from ' '{print $2}'
+grep 'Failed password' ${1} | awk -F 'from ' '{print $2}' | cut -f 1 -d ' '
