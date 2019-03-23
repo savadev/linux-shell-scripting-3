@@ -9,9 +9,11 @@ usage()
   exit 1
 }
 
+# Check for file supplied
 if [[ ${#} -eq 0 ]]
 then
   usage
+# Check for file exists
 elif [[ ! -f ${1} ]]
 then
   echo "File ${1} cannot be read." >&2
