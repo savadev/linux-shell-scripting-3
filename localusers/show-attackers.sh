@@ -29,4 +29,4 @@ echo 'Count,IP,Location'
 #    the useful stuff is after the word "from"
 # c. The IP address is before the space
 
-grep 'Failed password' ${1} | awk -F 'from ' '{print $2}' | cut -f 1 -d ' '
+grep 'Failed password' ${1} | awk -F 'from ' '{print $2}' | cut -f 1 -d ' ' | sort | uniq -c
