@@ -10,6 +10,8 @@ usage()
   exit 1
 }
 
+LIMIT='10'
+
 # Check for file supplied
 if [[ ${#} -eq 0 ]]
 then
@@ -31,17 +33,19 @@ echo 'Count,IP,Location'
 # c. The IP address is before the space
 # d. Find unique IP addresses and count
 # e. Descending sort by number of attempts
-# f. Create list of comma-separated counts and IPs if their counts are > 10
+# f. Loop through list splitting lines by spaces into COUNT and IP
 
 
-for COUNT_IP in $(grep 'Failed password' ${1} | awk -F 'from ' '{print $2}' | cut -f 1 -d ' ' | sort | uniq -c | sort -n -r | awk '{if ($1 > 10) print $1","$2};')
+grep 'Failed password' ${1} | awk -F 'from ' '{print $2}' | cut -f 1 -d ' ' | sort | uniq -c | sort -nr | while read COUNT IP
 
 do
-  # a. Remove IP from previously-created string
-  # b. Perform geoiplookup
-  # c. Remove nice formatting nonsense from lookup
-  # d. Concatenate country with previously-built string
-  echo "${COUNT_IP},$(geoiplookup $(echo $COUNT_IP | cut -f 2 -d ',') | awk -F ', ' '{print $NF}')"
+  if [[ ${COUNT} -gt ${LIMIT} ]]
+  then
+     # a. Perform geoiplookup
+     # b. Remove nice formatting nonsense from lookup
+     # c. Concatenate country with previously-built string
+     echo "${COUNT},${IP},$(geoiplookup ${IP} | awk -F ', ' '{print $NF}')"
+  fi
 done
 
 exit 0
