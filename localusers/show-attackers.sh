@@ -20,3 +20,5 @@ then
 fi
 
 
+# Count number of failed attempts by IP
+sort ${1} | uniq -c
