@@ -5,7 +5,8 @@
 
 usage()
 {
-  echo 'This is only a test.' >&2
+  echo 'Usage: show-attackers.sh LOG_FILE' >&2
+  echo ' - Reads LOG_FILE for failed logins and generates CSV file with Count,IP,Location' >&2
   exit 1
 }
 
