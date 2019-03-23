@@ -28,5 +28,19 @@ echo 'Count,IP,Location'
 # b. Since cut can't do multi-character separator, use awk becuase
 #    the useful stuff is after the word "from"
 # c. The IP address is before the space
+# d. Find unique IP addresses and count
+# e. Descending sort by number of attempts
+# f. Create list of comma-separated counts and IPs if their counts are > 10
 
-grep 'Failed password' ${1} | awk -F 'from ' '{print $2}' | cut -f 1 -d ' ' | sort | uniq -c
+
+for COUNT_IP in $(grep 'Failed password' ${1} | awk -F 'from ' '{print $2}' | cut -f 1 -d ' ' | sort | uniq -c | sort -n -r | awk '{if ($1 > 10) print $1","$2};')
+
+do
+  # a. Remove IP from previously-created string
+  # b. Perform geoiplookup
+  # c. Remove nice formatting nonsense from lookup
+  # d. Concatenate country with previously-built string
+  echo "${COUNT_IP},$(geoiplookup $(echo $COUNT_IP | cut -f 2 -d ',') | awk -F ', ' '{print $NF}')"
+done
+
+exit 0
