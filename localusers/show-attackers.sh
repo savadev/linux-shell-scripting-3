@@ -17,6 +17,7 @@ then
 elif [[ ! -f ${1} ]]
 then
   echo "File ${1} cannot be read." >&2
+  exit 1
 fi
 
 # Echo header
