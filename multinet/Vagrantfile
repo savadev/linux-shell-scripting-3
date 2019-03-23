@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
 
   config.vn.define "server02" do |server02|
     server02.vm.hostname = "server02"
-    server02.vm.network "private_network", ip "10.9.8.12"
+    server02.vm.network "private_network", ip: "10.9.8.12"
   end
 
   # Disable automatic box update checking. If you disable this, then
