@@ -26,6 +26,16 @@ usage()
   exit 1
 }
 
+verbose_print()
+{
+  local MESSAGE="$@"
+  # This is a neat way in modern Bash to see if a variable is set
+  if [[ -v VERBOSE ]]
+  then
+    echo "${MESSAGE}"
+  fi
+}
+
 # Enforce execution WITHOUT superuser privileges
 if [[ ${UID} -eq 0 ]]
 then
@@ -42,7 +52,7 @@ do
     s) SUPER_USER='true' ;;
     v)
        VERBOSE='true'
-       echo 'Verbose mode on'
+       verbose_print 'Verbose mode on'
        ;;
     ?) usage
   esac
