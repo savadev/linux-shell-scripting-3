@@ -59,8 +59,13 @@ do
 done
 
 # !Remove options to make room for arguments
+shift $(( OPTIND-1 ))
 
 # !Make sure they actually gave an argument
+if [[ ${#} -eq 0 ]]
+then
+  usage
+fi
 
 # !Make sure the file exists
 
