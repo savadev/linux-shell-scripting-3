@@ -25,6 +25,12 @@ usage()
 }
 
 # Enforce execution WITHOUT superuser privileges
+if [[ ${UID} -eq 0 ]]
+then
+  usage
+  exit 1
+fi
+
 
 # Parse options
 
