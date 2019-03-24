@@ -68,7 +68,7 @@ then
 fi
 
 # Get arguments as one string this time
-ARGS="$*"
+COMMAND="$*"
 
 # !Make sure the file exists
 if [[ ! -f $FILE ]]
@@ -78,6 +78,10 @@ then
 fi 
 
 # Do for each host
+for MACHINE in ${FILE}
+do
+  echo "${MACHINE}: ${COMMAND}"
+done
 
 # Connect with SSH
 
