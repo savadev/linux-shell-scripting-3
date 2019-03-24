@@ -67,7 +67,15 @@ then
   usage
 fi
 
+# Get arguments as one string this time
+ARGS="$*"
+
 # !Make sure the file exists
+if [[ ! -f $FILE ]]
+then
+  echo "File ${FILE} cannot be opened."
+  exit 1
+fi 
 
 # Do for each host
 
