@@ -24,3 +24,18 @@ usage()
   exit 1
 }
 
+# Enforce execution WITHOUT superuser privileges
+
+# Parse options
+
+# !Remove options to make room for arguments
+
+# !Make sure they actually gave an argument
+
+# !Make sure the file exists
+
+# Do for each host
+
+# Connect with SSH
+
+# Run command (maybe)
