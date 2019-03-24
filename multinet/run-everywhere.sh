@@ -18,6 +18,8 @@
 #
 #	-v	enable verbose mode: displays name of machine currently executing command
 
+FILE='/vagrant/servers'
+
 usage()
 {
   echo 'Print usage stuff here' >&2
@@ -31,8 +33,20 @@ then
   exit 1
 fi
 
-
 # Parse options
+while getopts f:nsv OPTION
+do
+  case "${OPTION}" in
+    f) FILE="${OPTARG}" ;;
+    n) DRY_RUN='true' ;;
+    s) SUPER_USER='true' ;;
+    v)
+       VERBOSE='true'
+       echo 'Verbose mode on'
+       ;;
+    ?) usage
+  esac
+done
 
 # !Remove options to make room for arguments
 
