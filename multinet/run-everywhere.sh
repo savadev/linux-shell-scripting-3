@@ -17,3 +17,10 @@
 #	-s	run command with superuser privileges on remote machines
 #
 #	-v	enable verbose mode: displays name of machine currently executing command
+
+usage()
+{
+  echo 'Print usage stuff here' >&2
+  exit 1
+}
+
