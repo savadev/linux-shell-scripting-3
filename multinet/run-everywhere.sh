@@ -88,10 +88,10 @@ do
   # If we just want the trial run
   if [[ -v DRY_RUN ]]
   then
-    echo "${DRY_RUN}${COMMAND}"
+    echo "${DRY_RUN}${SUPER_USER}${COMMAND}"
   else
     # Connect to machine with 2s timeout and execute command
-    ssh -o ConnectTimeout=2 "${MACHINE}" ${COMMAND}
+    ssh -o ConnectTimeout=2 "${MACHINE}" "${SUPER_USER}${COMMAND}"
 
     if [[ ${?} -ne 0 ]]
     then
