@@ -73,7 +73,7 @@ COMMAND="$*"
 # !Make sure the file exists
 if [[ ! -f $FILE ]]
 then
-  echo "File ${FILE} cannot be opened."
+  echo "File ${FILE} cannot be opened." >&2
   exit 1
 fi 
 
@@ -92,10 +92,13 @@ do
   else
     # Connect to machine with 2s timeout and execute command
     ssh -o ConnectTimeout=2 "${MACHINE}" "${SUPER_USER}${COMMAND}"
-
-    if [[ ${?} -ne 0 ]]
+    EXIT_STATUS=$?
+    if [[ ${EXIT_STATUS} -ne 0 ]]
     then
       echo "Could not connect to ${MACHINE}."
+      exit ${EXIT_STATUS}
     fi
   fi
 done
+
+exit 0
