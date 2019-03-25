@@ -22,7 +22,12 @@ SERVER_LIST='/vagrant/servers'
 
 usage()
 {
-  echo 'Print usage stuff here' >&2
+  echo "Usage: run-everywhere.sh [-nsv] [-f FILE] COMMAND" >&2
+  echo 'Executes COMMAND as a single command on every machine in FILE.' >&2
+  echo "  -f FILE  Use FILE for list of machines. Default ${SERVER_LIST}." >&2
+  echo '  -n       Dry run mode. Display the command that would have been executed and exit.' >&2
+  echo '  -s       Execute COMMAND using superuser privileges on remote machines.' >&2
+  echo '  -v       Verbose mode. Displays machine name before executing COMMAND.' >&2
   exit 1
 }
 
