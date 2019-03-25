@@ -18,7 +18,7 @@
 #
 #	-v	enable verbose mode: displays name of machine currently executing command
 
-FILE='/vagrant/servers'
+SERVER_LIST='/vagrant/servers'
 
 usage()
 {
@@ -71,16 +71,16 @@ fi
 COMMAND="$*"
 
 # !Make sure the file exists
-if [[ ! -f $FILE ]]
+if [[ ! -f ${SERVER_LIST} ]]
 then
-  echo "File ${FILE} cannot be opened." >&2
+  echo "File ${SERVER_LIST} cannot be opened." >&2
   exit 1
 fi 
 
-verbose_print "Running command on all machines in ${FILE}."
+verbose_print "Running command on all machines in ${SERVER_LIST}."
 
 # Do for each host
-for MACHINE in $(cat ${FILE})
+for MACHINE in $(cat ${SERVER_LIST})
 do
   # Print machine executing command
   verbose_print "Executing on ${MACHINE}"
@@ -92,6 +92,8 @@ do
   else
     # Connect to machine with 2s timeout and execute command
     ssh -o ConnectTimeout=2 "${MACHINE}" "${SUPER_USER}${COMMAND}"
+
+    # Save the exit status in case we need to exit the script with it.
     EXIT_STATUS=$?
     if [[ ${EXIT_STATUS} -ne 0 ]]
     then
