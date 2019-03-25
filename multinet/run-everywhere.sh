@@ -78,9 +78,9 @@ then
 fi 
 
 # Do for each host
-for MACHINE in ${FILE}
+for MACHINE in $(cat ${FILE})
 do
-  echo "${MACHINE}: ${COMMAND}"
+  echo "${MACHINE}: executing ${COMMAND}"
 done
 
 # Connect with SSH
