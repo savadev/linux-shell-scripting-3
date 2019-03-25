@@ -84,6 +84,8 @@ fi
 
 verbose_print "Running command on all machines in ${SERVER_LIST}."
 
+EXIT_STATUS='0'
+
 # Do for each host
 for MACHINE in $(cat ${SERVER_LIST})
 do
@@ -102,10 +104,9 @@ do
     EXIT_STATUS=$?
     if [[ ${EXIT_STATUS} -ne 0 ]]
     then
-      echo "Execution on ${MACHINE} failed."
-      exit ${EXIT_STATUS}
+      echo "Execution on ${MACHINE} failed." >&2
     fi
   fi
 done
 
-exit 0
+exit ${EXIT_STATUS}
