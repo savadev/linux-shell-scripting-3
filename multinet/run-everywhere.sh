@@ -73,7 +73,7 @@ then
 fi
 
 # Get arguments as one string this time
-COMMAND="$*"
+COMMAND="$@"
 
 # !Make sure the file exists
 if [[ ! -f ${SERVER_LIST} ]]
