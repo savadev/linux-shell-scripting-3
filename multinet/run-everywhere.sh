@@ -102,7 +102,7 @@ do
     EXIT_STATUS=$?
     if [[ ${EXIT_STATUS} -ne 0 ]]
     then
-      echo "Could not connect to ${MACHINE}."
+      echo "Execution on ${MACHINE} failed."
       exit ${EXIT_STATUS}
     fi
   fi
