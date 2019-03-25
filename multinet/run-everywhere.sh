@@ -85,11 +85,17 @@ do
   # Print machine executing command
   verbose_print "Executing on ${MACHINE}"
 
-  # Connect to machine with 2s timeout and execute command
-  ssh -o ConnectTimeout=2 "${MACHINE}" ${COMMAND}
-
-  if [[ ${?} -ne 0 ]]
+  # If we just want the trial run
+  if [[ -v DRY_RUN ]]
   then
-    echo "Could not connect to ${MACHINE}."
+    echo "${DRY_RUN}${COMMAND}"
+  else
+    # Connect to machine with 2s timeout and execute command
+    ssh -o ConnectTimeout=2 "${MACHINE}" ${COMMAND}
+
+    if [[ ${?} -ne 0 ]]
+    then
+      echo "Could not connect to ${MACHINE}."
+    fi
   fi
 done
