@@ -48,8 +48,8 @@ while getopts f:nsv OPTION
 do
   case "${OPTION}" in
     f) FILE="${OPTARG}" ;;
-    n) DRY_RUN='true' ;;
-    s) SUPER_USER='true' ;;
+    n) DRY_RUN='DRY RUN: ' ;;
+    s) SUPER_USER='sudo ' ;;
     v)
        VERBOSE='true'
        verbose_print 'Verbose mode on'
@@ -82,8 +82,13 @@ verbose_print "Running command on all machines in ${FILE}."
 # Do for each host
 for MACHINE in $(cat ${FILE})
 do
+  verbose_print "Connecting to ${MACHINE}"
+
+  # Connect to machine with 2s timeout
+  ssh -o ConnectTimeout=2 "${MACHINE}"
+
   # Print machine executing command
-  verbose_print "${MACHINE}: executing ${COMMAND}"
+  verbose_print "Executing on ${MACHINE}"
 done
 
 # Connect with SSH
