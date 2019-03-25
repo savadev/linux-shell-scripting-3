@@ -59,7 +59,7 @@ do
        VERBOSE='true'
        verbose_print 'Verbose mode on'
        ;;
-    ?) usage
+    ?) usage ;;
   esac
 done
 
