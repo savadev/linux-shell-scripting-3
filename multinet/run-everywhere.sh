@@ -77,10 +77,13 @@ then
   exit 1
 fi 
 
+verbose_print "Running command on all machines in ${FILE}."
+
 # Do for each host
 for MACHINE in $(cat ${FILE})
 do
-  echo "${MACHINE}: executing ${COMMAND}"
+  # Print machine executing command
+  verbose_print "${MACHINE}: executing ${COMMAND}"
 done
 
 # Connect with SSH
